@@ -44,13 +44,18 @@ function updateTable() {
     fetch(`${API_URL}/guesses`)
         .then((response) => response.json())
         .then((data) => {
-            console.log('Fetched guesses:', data); // Log the data
             const tbody = document.querySelector('#guessTable tbody');
             tbody.innerHTML = ''; // Clear previous data
 
-            data.forEach(({ name, guess }) => {
+            data.forEach(({ id, name, guess }) => {
                 const row = document.createElement('tr');
-                row.innerHTML = `<td>${name}</td><td>${guess}</td>`;
+                row.innerHTML = `
+                    <td>${name}</td>
+                    <td>${guess}</td>
+                    <td>
+                        <button class="btn btn-danger btn-sm" onclick="deleteGuess(${id})">Delete</button>
+                    </td>
+                `;
                 tbody.appendChild(row);
             });
         })
@@ -81,6 +86,23 @@ function searchGuess() {
         })
         .catch((error) => console.error('Error searching guess:', error));
 }
+
+function deleteGuess(id) {
+    if (!confirm('Are you sure you want to delete this entry?')) {
+        return;
+    }
+
+    fetch(`${API_URL}/guesses/${id}`, {
+        method: 'DELETE',
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            alert(data.message); // Show success message
+            updateTable(); // Refresh the table
+        })
+        .catch((error) => console.error('Error deleting guess:', error));
+}
+
 
 // Attach event listeners
 document.getElementById('guessForm').addEventListener('submit', submitGuess);
