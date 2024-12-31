@@ -20,16 +20,23 @@ function submitGuess(event) {
         },
         body: JSON.stringify({ name, guess }),
     })
-        .then((response) => response.json())
-        .then((data) => {
-            if (data.message) {
-                alert(data.message);
-                if (response.ok) {
-                    updateTable(); // Refresh the guesses table
-                }
+        .then((response) => {
+            if (!response.ok) {
+                return response.json().then((data) => {
+                    throw new Error(data.message || 'Failed to submit guess.');
+                });
             }
+            return response.json();
         })
-        .catch((error) => console.error('Error:', error));
+        .then((data) => {
+            alert(data.message); // Show success message
+            updateTable(); // Refresh the guesses table
+            document.getElementById('guessForm').reset(); // Clear the form fields
+        })
+        .catch((error) => {
+            alert(`Error: ${error.message}`);
+            console.error('Error submitting guess:', error);
+        });
 }
 
 // Function to fetch and display all guesses
@@ -37,6 +44,7 @@ function updateTable() {
     fetch(`${API_URL}/guesses`)
         .then((response) => response.json())
         .then((data) => {
+            console.log('Fetched guesses:', data); // Log the data
             const tbody = document.querySelector('#guessTable tbody');
             tbody.innerHTML = ''; // Clear previous data
 
@@ -80,3 +88,4 @@ document.getElementById('searchButton').addEventListener('click', searchGuess);
 
 // Initial load of all guesses
 updateTable();
+
