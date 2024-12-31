@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guess the Beans</title>
+    <title>Teka Kacang Dalam Botol</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -13,30 +13,34 @@
     <div class="container">
         <!-- Form to submit guesses -->
         <form id="guessForm" class="card">
-            <h2>Submit Your Guess</h2><P></P>
+            <h2>Submit Your Guess</h2>
+            <br>
             <input type="text" id="name" placeholder="Your Name" required>
-            <input type="number" id="guess" placeholder="Your Guess" required><P></P>
+            <input type="number" id="guess" placeholder="Your Guess" required>
+            <p>
             <button type="submit" class="btn">Submit Guess</button>
         </form>
 
         <!-- Search for a specific guess -->
-        <div class="search-section card">
+        <!-- <div class="search-section card">
             <h2>Search by Name</h2>
             <input type="text" id="searchName" placeholder="Enter Name to Search">
             <button id="searchButton" class="btn">Search</button>
-        </div>
+        </div> -->
 
         <!-- Table to display all guesses -->
         <h2 class="table-title">Current Guesses</h2>
-        <table id="guessTable">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Guess</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+        <div class="table-container">
+            <table id="guessTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Guess</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
     </div>
 
     <script src="js/bg.js"></script>
