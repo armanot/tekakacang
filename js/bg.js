@@ -1,5 +1,5 @@
 // Backend API URL
-const API_URL = 'http://localhost:3000/api';
+const API_URL = 'https://tekakacang.onrender.com/api';
 
 // Function to submit a guess
 function submitGuess(event) {
