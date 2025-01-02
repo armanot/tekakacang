@@ -44,6 +44,7 @@ function updateTable() {
     fetch(`${API_URL}/guesses`)
         .then((response) => response.json())
         .then((data) => {
+            console.log('Fetched data:', data); // For debugging
             const tbody = document.querySelector('#guessTable tbody');
             tbody.innerHTML = ''; // Clear previous data
 
@@ -106,7 +107,8 @@ function deleteGuess(id) {
 
 // Attach event listeners
 document.getElementById('guessForm').addEventListener('submit', submitGuess);
-document.getElementById('searchButton').addEventListener('click', searchGuess);
+// document.getElementById('searchButton').addEventListener('click', searchGuess);
+document.getElementById('viewGuessesButton').addEventListener('click', updateTable);
 
 // Initial load of all guesses
 updateTable();
